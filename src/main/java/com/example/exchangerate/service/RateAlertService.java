@@ -11,12 +11,16 @@ import org.springframework.stereotype.Service;
 import com.example.exchangerate.entity.AlertStatus;
 import com.example.exchangerate.entity.RateAlert;
 import com.example.exchangerate.repository.RateAlertRepository;
+import com.example.exchangerate.repository.AlertNotificationRepository;
 
 @Service
 public class RateAlertService {
 
     @Autowired
     private RateAlertRepository rateAlertRepository;
+
+        @Autowired
+    private AlertNotificationRepository alertNotificationRepository;
 
     // D1: safe saving
     public String save(RateAlert rateAlert) {
@@ -63,14 +67,18 @@ public class RateAlertService {
     }
 
     // Delete a rate alert by id
+        // Delete a rate alert by id (E3: not allowed if it has alert notifications)
     public String delete(UUID id) {
-        if (!rateAlertRepository.existsById(id)) {
+        Optional<RateAlert> found = rateAlertRepository.findById(id);
+        if (found.isEmpty()) {
             return "The rate alert with that id does not exist";
+        }
+        if (alertNotificationRepository.existsByRateAlert(found.get())) {
+            return "That rate alert has alert notifications, delete them first";
         }
         rateAlertRepository.deleteById(id);
         return "Rate alert deleted successfully";
     }
-
     // B2: rate alerts in one status, earliest expiry date first
     public List<RateAlert> getByStatus(AlertStatus status) {
         return rateAlertRepository.findByStatusOrderByExpiryDateAsc(status);

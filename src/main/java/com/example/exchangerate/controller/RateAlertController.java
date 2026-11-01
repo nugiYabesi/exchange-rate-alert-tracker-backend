@@ -66,14 +66,16 @@ public class RateAlertController {
         }
     }
 
-    // DELETE /api/rate-alerts/delete/{id}
+        // DELETE /api/rate-alerts/delete/{id}  (E3: 409 when it has alert notifications)
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable UUID id) {
         String message = rateAlertService.delete(id);
         if (message.equals("The rate alert with that id does not exist")) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        } else if (message.equals("That rate alert has alert notifications, delete them first")) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
         } else {
-            return  ResponseEntity.status(HttpStatus.OK).body(message);
+            return ResponseEntity.status(HttpStatus.OK).body(message);
         }
     }
         // GET /api/rate-alerts/by-status?status=ACTIVE
