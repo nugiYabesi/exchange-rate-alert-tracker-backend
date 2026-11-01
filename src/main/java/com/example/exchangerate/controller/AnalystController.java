@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.exchangerate.entity.Analyst;
 import com.example.exchangerate.service.AnalystService;
@@ -70,5 +71,11 @@ public class AnalystController {
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(message);
         }
+    }
+
+        // GET /api/analysts/by-currency?name=usd
+    @GetMapping("/by-currency")
+    public ResponseEntity<List<Analyst>> getByCurrency(@RequestParam String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(analystService.getByCurrency(name));
     }
 }

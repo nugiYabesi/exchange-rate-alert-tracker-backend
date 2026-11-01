@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.exchangerate.entity.Subscriber;
 import com.example.exchangerate.service.SubscriberService;
+import com.example.exchangerate.service.AnalystService;
 
 @RestController
 @RequestMapping("/api/subscribers")
@@ -26,6 +27,9 @@ public class SubscriberController {
 
     @Autowired
     private SubscriberService subscriberService;
+
+        @Autowired
+        private AnalystService analystService;
 
     // POST /api/subscribers/save
     @PostMapping("/save")
@@ -76,5 +80,16 @@ public class SubscriberController {
     @GetMapping("/by-country")
     public ResponseEntity<List<Subscriber>> getByCountry(@RequestParam String country) {
         return ResponseEntity.status(HttpStatus.OK).body(subscriberService.getByCountry(country));
+    }
+
+
+        // GET /api/subscribers/of-analyst/{analystId}
+    @GetMapping("/of-analyst/{analystId}")
+    public ResponseEntity<?> getOfAnalyst(@PathVariable UUID analystId) {
+        if (analystService.getById(analystId).isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The analyst with that id does not exist");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(subscriberService.getOfAnalyst(analystId));
+        }
     }
 }

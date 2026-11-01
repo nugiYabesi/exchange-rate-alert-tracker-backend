@@ -56,4 +56,9 @@ public String update(UUID id, Desk newData) {
         return "Desk deleted successfully";
     }
 
+        // C2: desks nobody occupies
+    public List<Desk> getFree() {
+        return deskRepository.findFreeDesks();
+    }
+
 }

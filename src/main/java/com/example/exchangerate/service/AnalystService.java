@@ -59,4 +59,9 @@ public String delete(UUID id) {
 analystRepository.deleteById(id);
 return "Subscriber deleted successfully";
 }
+
+    // C1: analysts who hold a currency
+    public List<Analyst> getByCurrency(String name) {
+        return analystRepository.searchByCurrencyName(name);
+    }
 }

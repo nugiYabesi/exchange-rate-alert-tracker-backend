@@ -71,6 +71,12 @@ public class CurrencyController {
             return ResponseEntity.status(HttpStatus.OK).body(message);
         }
     }
+
+        // GET /api/currencies/unused
+    @GetMapping("/unused")
+    public ResponseEntity<List<Currency>> getUnused() {
+        return ResponseEntity.status(HttpStatus.OK).body(currencyService.getUnused());
+    }
 }
 
   

@@ -65,4 +65,9 @@ return "Subscriber deleted successfully";
     public List<Subscriber> getByCountry(String country) {
         return subscriberRepository.findByCountryIgnoreCaseOrderByLastNameAsc(country);
     }
+
+        // C4: subscribers who have at least one rate alert with this analyst
+    public List<Subscriber> getOfAnalyst(UUID analystId) {
+        return subscriberRepository.findSubscribersOfAnalyst(analystId);
+    }
 }

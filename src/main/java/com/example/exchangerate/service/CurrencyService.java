@@ -57,4 +57,9 @@ public String delete(UUID id) {
     currencyRepository.deleteById(id);
     return "Currency deleted successfully";
 }
+
+    // C3: currencies nobody holds
+    public List<Currency> getUnused() {
+        return currencyRepository.findUnusedCurrencies();
+    }
 }

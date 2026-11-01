@@ -71,4 +71,10 @@ public class DeskController {
             return ResponseEntity.status(HttpStatus.OK).body(message);
         }
     }
+
+        // GET /api/desks/free
+    @GetMapping("/free")
+    public ResponseEntity<List<Desk>> getFree() {
+        return ResponseEntity.status(HttpStatus.OK).body(deskService.getFree());
+    }
 }
