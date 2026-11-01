@@ -31,11 +31,17 @@ public interface RateAlertRepository extends JpaRepository<RateAlert, UUID> {
     @Query("SELECT r.status, COUNT(r) FROM RateAlert r GROUP BY r.status")
     List<Object[]> countByStatusReport();
 
-    // F2: JPQL UPDATE. One query changes all the rows, no Java loop.
-    // It returns the number of rows changed.
+    // F2: JPQL UPDATE.
     @Modifying
     @Query("UPDATE RateAlert r SET r.status = com.example.exchangerate.entity.AlertStatus.DEACTIVATED "
             + "WHERE r.analyst.id = :analystId AND r.expiryDate = :date "
             + "AND r.status <> com.example.exchangerate.entity.AlertStatus.NOTIFIED")
     int cancelDay(@Param("analystId") UUID analystId, @Param ("date") LocalDate date);
+
+
+    // dashboard : DERIVED countBy queries
+
+    long countByExpiryDate(LocalDate expiryDate);
+
+    long countByStatus(AlertStatus status);
 }

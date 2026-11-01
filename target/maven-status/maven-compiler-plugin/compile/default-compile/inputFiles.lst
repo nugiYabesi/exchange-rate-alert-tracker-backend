@@ -4,6 +4,7 @@ D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchang
 D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\repository\RateAlertRepository.java
 D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\repository\AlertNotificationRepository.java
 D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\service\DeskService.java
+D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\controller\DashboardController.java
 D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\entity\Desk.java
 D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\controller\AlertNotificationController.java
 D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\entity\RateAlert.java
@@ -15,6 +16,7 @@ D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchang
 D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\entity\AlertNotification.java
 D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\controller\AnalystController.java
 D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\controller\CurrencyController.java
+D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\service\DashboardService.java
 D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\service\CurrencyService.java
 D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\repository\DeskRepository.java
 D:\COURSES\webtech\exchange-rate-alert-tracker\src\main\java\com\example\exchangerate\entity\Currency.java

@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.example.exchangerate.entity.RateAlert;
 import com.example.exchangerate.service.RateAlertService;
@@ -109,5 +113,25 @@ public class RateAlertController {
     @GetMapping("/stats/by-status")
     public ResponseEntity<List<Object[]>> getStatsByStatus() {
         return ResponseEntity.status(HttpStatus.OK).body(rateAlertService.getStatsByStatus());
+    }
+
+        // GET /api/rate-alerts/page?page=0&size=5&sort=expiryDate,desc  (bonus)
+    @GetMapping("/page")
+    public ResponseEntity<Page<RateAlert>> getPage(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "expiryDate,desc") String sort) {
+
+        // "expiryDate,desc" -> field "expiryDate" and direction "desc"
+        String[] parts = sort.split(",");
+        String field = parts[0];
+        Sort.Direction direction = Sort.Direction.ASC;
+        if (parts.length > 1 && parts[1].equalsIgnoreCase("desc")) {
+            direction = Sort.Direction.DESC;
+        }
+
+        // The controller builds the Pageable from the three parameters
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, field));
+        return ResponseEntity.status(HttpStatus.OK).body(rateAlertService.getPage(pageable));
     }
 }

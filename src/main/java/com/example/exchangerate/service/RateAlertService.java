@@ -8,6 +8,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.example.exchangerate.entity.AlertStatus;
 import com.example.exchangerate.entity.RateAlert;
@@ -130,5 +132,10 @@ public class RateAlertService {
     public String cancelDay(UUID analystId, LocalDate date) {
         int count = rateAlertRepository.cancelDay(analystId, date);
         return count + "rate alerts cancelled for analyst " + analystId + " on " + date;
+    }
+
+        // rate alerts page by page
+    public Page<RateAlert> getPage(Pageable pageable) {
+        return rateAlertRepository.findAll(pageable);
     }
 }
