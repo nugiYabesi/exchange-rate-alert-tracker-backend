@@ -1,5 +1,6 @@
 package com.example.exchangerate.repository;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,5 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.exchangerate.entity.Subscriber;
 
 public interface SubscriberRepository extends JpaRepository<Subscriber, UUID> {
-    
+
+    // B1: DERIVED query. Spring builds the SQL from the method name.
+    List<Subscriber> findByCountryIgnoreCaseOrderByLastNameAsc(String country);
 }

@@ -60,4 +60,9 @@ public String delete(UUID id) {
 subscriberRepository.deleteById(id);
 return "Subscriber deleted successfully";
 }
+
+    // B1: subscribers of a country, sorted by last name
+    public List<Subscriber> getByCountry(String country) {
+        return subscriberRepository.findByCountryIgnoreCaseOrderByLastNameAsc(country);
+    }
 }

@@ -3,6 +3,8 @@ package com.example.exchangerate.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.time.LocalDate;
+import com.example.exchangerate.entity.AlertStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,4 +62,15 @@ public String delete(UUID id) {
 rateAlertRepository.deleteById(id);
 return "rate alert deleted successfully";
 }
+
+
+    // B2: rate alerts in one status, earliest expiry date first
+    public List<RateAlert> getByStatus(AlertStatus status) {
+        return rateAlertRepository.findByStatusOrderByExpiryDateAsc(status);
+    }
+
+    // B3: rate alerts between two dates (both included)
+    public List<RateAlert> getBetween(LocalDate start, LocalDate end) {
+        return rateAlertRepository.findByExpiryDateBetweenOrderByExpiryDateAsc(start, end);
+    }
 }
