@@ -18,7 +18,7 @@ public  class Subscriber {
     private UUID id;
 
     private String firstName;
-    private String LastName;
+    private String lastName;
 
     @Column(unique = true)
     private String subscriberCode;
@@ -43,12 +43,12 @@ public  class Subscriber {
         this.firstName= firstName;
     }
 
-    public String getLastName() {
-        return LastName;
+    public String getlastName() {
+        return lastName;
     }
 
-    public void setLastName(String LastName){
-        this.LastName= LastName;
+    public void setLastName(String lastName){
+        this.lastName= lastName;
     }
 
 

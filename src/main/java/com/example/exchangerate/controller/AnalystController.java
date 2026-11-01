@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -77,5 +78,33 @@ public class AnalystController {
     @GetMapping("/by-currency")
     public ResponseEntity<List<Analyst>> getByCurrency(@RequestParam String name) {
         return ResponseEntity.status(HttpStatus.OK).body(analystService.getByCurrency(name));
+    }
+
+    // PUT /api/analysts/{analystId}/currencies/{currencyId} 
+    @PutMapping("/{analystId}/currencies/{currencyId}")
+    public ResponseEntity<String> addCurrency(@PathVariable UUID analystId, @PathVariable UUID currencyId) {
+        String message = analystService.addCurrency(analystId, currencyId);
+        if (message.equals("The analyst with that id does not exist")
+                || message.equals("That currency does not exist")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        } else if (message.equals("The analyst already has that currency")) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }
+    }
+
+    // PATCH /api/analysts/{analystId}/desk?deskNumber=4  
+    @PatchMapping("/{analystId}/desk")
+    public ResponseEntity<String> moveToDesk(@PathVariable UUID analystId, @RequestParam int deskNumber) {
+        String message = analystService.moveToDesk(analystId, deskNumber);
+        if (message.equals("The analyst with that id does not exist")
+                || message.equals("The desk with that deskNumber does not exist")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        } else if (message.equals("That desk is taken by another analyst")) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }
     }
 }

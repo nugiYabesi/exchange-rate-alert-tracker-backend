@@ -43,7 +43,7 @@ public String update(UUID id, Subscriber newData) {
     }
     Subscriber subscriber = found.get();
     subscriber.setFirstName(newData.getFirstName());
-    subscriber.setLastName(newData.getLastName());
+    subscriber.setLastName(newData.getlastName());
     subscriber.setSubscriberCode(newData.getSubscriberCode());
     subscriber.setEmail(newData.getEmail());
     subscriber.setCountry(newData.getCountry());
