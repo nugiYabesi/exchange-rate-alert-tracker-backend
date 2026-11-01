@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.exchangerate.entity.AlertStatus;
 import com.example.exchangerate.entity.RateAlert;
@@ -66,9 +67,9 @@ public class RateAlertService {
         return "Rate alert updated successfully";
     }
 
-    // Delete a rate alert by id
+    
         // Delete a rate alert by id (E3: not allowed if it has alert notifications)
-    public String delete(UUID id) {
+     public String delete(UUID id) {
         Optional<RateAlert> found = rateAlertRepository.findById(id);
         if (found.isEmpty()) {
             return "The rate alert with that id does not exist";
@@ -117,5 +118,17 @@ public class RateAlertService {
         rateAlert.setStatus(newStatus);
         rateAlertRepository.save(rateAlert);
         return "Rate alert status updated successfully";
+    }
+
+        // F1: how many rate alerts in each status
+    public List<Object[]> getStatsByStatus() {
+        return rateAlertRepository.countByStatusReport();
+    }
+
+    // F2: deactivate every rate alert of an analyst on a date (except NOTIFIED ones)
+    @Transactional
+    public String cancelDay(UUID analystId, LocalDate date) {
+        int count = rateAlertRepository.cancelDay(analystId, date);
+        return count + "rate alerts cancelled for analyst " + analystId + " on " + date;
     }
 }

@@ -104,4 +104,10 @@ public class RateAlertController {
             return ResponseEntity.status(HttpStatus.OK).body(message);
         }
     }
+
+        // GET /api/rate-alerts/stats/by-status  (F1)
+    @GetMapping("/stats/by-status")
+    public ResponseEntity<List<Object[]>> getStatsByStatus() {
+        return ResponseEntity.status(HttpStatus.OK).body(rateAlertService.getStatsByStatus());
+    }
 }
